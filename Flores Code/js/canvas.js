@@ -89,6 +89,9 @@ function drawStem(ctx, x, y, height, width, delay) {
     const interval = setInterval(() => {
       progress += 0.05;
 
+      // 🔥 LIMPIA SOLO ESA ZONA (clave)
+      ctx.clearRect(x - 20, y - height - 20, 40, height + 40);
+
       ctx.beginPath();
       ctx.moveTo(x, y);
 
@@ -102,8 +105,6 @@ function drawStem(ctx, x, y, height, width, delay) {
       );
 
       ctx.strokeStyle = COLORS.stem;
-      ctx.shadowColor = "rgba(0,0,0,0.2)";
-      ctx.shadowBlur = 4;
       ctx.lineWidth = width;
       ctx.lineCap = "round";
       ctx.stroke();
@@ -113,7 +114,6 @@ function drawStem(ctx, x, y, height, width, delay) {
     }, 30);
   }, delay);
 }
-
 /* =========================
    HOJAS
 ========================= */
