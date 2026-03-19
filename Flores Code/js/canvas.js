@@ -1,19 +1,18 @@
 export function startBouquet(canvas) {
   const ctx = canvas.getContext("2d");
-
   const dpr = window.devicePixelRatio || 1;
-  ctx.scale(dpr, dpr);
-  animateBouquet(ctx);
 
   const size = Math.min(window.innerWidth * 0.9, 400);
 
-canvas.style.width = size + "px";
-canvas.style.height = size * 1.3 + "px";
+  canvas.style.width = size + "px";
+  canvas.style.height = size * 1.3 + "px";
 
-canvas.width = size * dpr;
-canvas.height = size * 1.3 * dpr;
+  canvas.width = size * dpr;
+  canvas.height = size * 1.3 * dpr;
 
-ctx.scale(dpr, dpr);
+  ctx.scale(dpr, dpr);
+
+  animateBouquet(ctx);
 }
 
 /* =========================
@@ -202,14 +201,14 @@ function animateBouquet(ctx) {
 
   drawStem(ctx, centerX - 40, baseY, 200, 5, delay);
   drawLeaf(ctx, centerX - 40, baseY - 80, -1, delay + 200);
-  drawFlower(ctx, centerX - 50, baseY - 200, 40, delay + 900);
+  drawFlower(ctx, centerX - 50, baseY - 200, 40, delay + 1300);
 
   drawStem(ctx, centerX + 40, baseY, 190, 5, delay + 200);
   drawLeaf(ctx, centerX + 40, baseY - 90, 1, delay + 400);
-  drawFlower(ctx, centerX + 50, baseY - 190, 40, delay + 1100);
+  drawFlower(ctx, centerX + 50, baseY - 190, 40, delay + 1500);
 
   drawStem(ctx, centerX, baseY, 230, 6, delay);
-  drawFlower(ctx, centerX, baseY - 230, 55, delay + 1400);
+  drawFlower(ctx, centerX, baseY - 230, 55, delay + 1700);
 
   // 🎀 LAZO
   drawBow(ctx, centerX, baseY, delay + 1500);
