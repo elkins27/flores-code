@@ -82,38 +82,23 @@ function drawFlower(ctx, x, y, size, delay) {
 /* =========================
    TALLO
 ========================= */
-function drawStem(ctx, x, y, height, width, delay) {
-  setTimeout(() => {
-    let progress = 0;
+function drawStem(ctx, x, y, height, width) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
 
-    const interval = setInterval(() => {
-      progress += 0.05;
+  ctx.quadraticCurveTo(
+    x,
+    y - height / 2,
+    x,
+    y - height
+  );
 
-      // 🔥 LIMPIA SOLO ESA ZONA (clave)
-      ctx.clearRect(x - 20, y - height - 20, 40, height + 40);
-
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-
-      const currentHeight = height * progress;
-
-      ctx.quadraticCurveTo(
-        x,
-        y - currentHeight / 2,
-        x,
-        y - currentHeight
-      );
-
-      ctx.strokeStyle = COLORS.stem;
-      ctx.lineWidth = width;
-      ctx.lineCap = "round";
-      ctx.stroke();
-
-      if (progress >= 1) clearInterval(interval);
-
-    }, 30);
-  }, delay);
+  ctx.strokeStyle = COLORS.stem;
+  ctx.lineWidth = width;
+  ctx.lineCap = "round";
+  ctx.stroke();
 }
+
 /* =========================
    HOJAS
 ========================= */
@@ -186,39 +171,35 @@ function animateBouquet(ctx) {
   const baseY = 400;
   const centerX = 200;
 
-  // 🌼 FONDO
-  drawStem(ctx, centerX - 80, baseY, 140, 3, 0);
-  drawFlower(ctx, centerX - 90, baseY - 150, 20, 400);
+  // 🌿 1. TALLOS (ATRÁS)
+  drawStem(ctx, centerX - 80, baseY, 140, 3);
+  drawStem(ctx, centerX + 80, baseY, 150, 3);
+  drawStem(ctx, centerX - 40, baseY, 200, 5);
+  drawStem(ctx, centerX + 40, baseY, 190, 5);
+  drawStem(ctx, centerX, baseY, 230, 6);
 
-  drawStem(ctx, centerX + 80, baseY, 150, 3, 200);
-  drawFlower(ctx, centerX + 90, baseY - 160, 20, 600);
+  // 🍃 2. HOJAS
+  drawLeaf(ctx, centerX - 40, baseY - 80, -1, 0);
+  drawLeaf(ctx, centerX + 40, baseY - 90, 1, 0);
 
-  drawFiller(ctx, centerX - 100, baseY - 80, 800);
-  drawFiller(ctx, centerX + 100, baseY - 80, 900);
+  // 🌼 3. FLORES (ENCIMA)
+  drawFlower(ctx, centerX - 90, baseY - 150, 20, 0);
+  drawFlower(ctx, centerX + 90, baseY - 160, 20, 0);
 
-  // 🌻 PRINCIPAL
-  const delay = 1200;
+  drawFlower(ctx, centerX - 50, baseY - 200, 40, 0);
+  drawFlower(ctx, centerX + 50, baseY - 190, 40, 0);
+  drawFlower(ctx, centerX, baseY - 230, 55, 0);
 
-  drawStem(ctx, centerX - 40, baseY, 200, 5, delay);
-  drawLeaf(ctx, centerX - 40, baseY - 80, -1, delay + 200);
-  drawFlower(ctx, centerX - 50, baseY - 200, 40, delay + 1300);
+  // ✨ 4. DETALLES
+  drawFiller(ctx, centerX - 100, baseY - 80, 0);
+  drawFiller(ctx, centerX + 100, baseY - 80, 0);
 
-  drawStem(ctx, centerX + 40, baseY, 190, 5, delay + 200);
-  drawLeaf(ctx, centerX + 40, baseY - 90, 1, delay + 400);
-  drawFlower(ctx, centerX + 50, baseY - 190, 40, delay + 1500);
+  // 🎀 5. LAZO (ENCIMA DE TODO)
+  drawBow(ctx, centerX, baseY, 0);
 
-  drawStem(ctx, centerX, baseY, 230, 6, delay);
-  drawFlower(ctx, centerX, baseY - 230, 55, delay + 1700);
-
-  // 🎀 LAZO
-  drawBow(ctx, centerX, baseY, delay + 1500);
-
-  // 💛 TEXTO FINAL
-  setTimeout(() => {
-    ctx.textAlign = "center";
-    ctx.font = "bold 26px Quicksand";
-    ctx.fillStyle = COLORS.petalDark;
-
-    ctx.fillText("Para ti 💛", centerX, 60);
-  }, delay + 2000);
+  // 💛 TEXTO
+  ctx.textAlign = "center";
+  ctx.font = "bold 26px Quicksand";
+  ctx.fillStyle = COLORS.petalDark;
+  ctx.fillText("Para ti 💛", centerX, 60);
 }
