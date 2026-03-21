@@ -259,22 +259,25 @@ function animateBouquet(ctx) {
 function showFinalMessage() {
   const msg = document.createElement("div");
 
-  msg.textContent = "Solo quería darte algo bonito 💝";
+  msg.textContent = "Solo quería hacerte algo bonito 💝";
 
   msg.style.position = "absolute";
-  msg.style.bottom = "40px";
+  msg.style.bottom = "10vh"; 
   msg.style.left = "50%";
   msg.style.transform = "translateX(-50%)";
-  msg.style.fontSize = "1.3rem";
+  msg.style.fontSize = "1.2rem";
   msg.style.fontFamily = "Quicksand, sans-serif";
   msg.style.color = "#5c4a00";
   msg.style.opacity = "0";
   msg.style.transition = "all 1s ease";
   msg.style.textAlign = "center";
 
+  msg.style.width = "90%";
+  msg.style.maxWidth = "400px";
+  msg.style.lineHeight = "1.4";
+
   document.body.appendChild(msg);
 
-  // ✨ animación de aparición
   setTimeout(() => {
     msg.style.opacity = "1";
     msg.style.transform = "translate(-50%, -10px)";
