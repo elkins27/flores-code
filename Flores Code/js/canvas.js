@@ -76,6 +76,12 @@ function drawFlower(ctx, x, y, size, delay) {
     ctx.arc(x, y, size * 0.25, 0, Math.PI * 2);
     ctx.fill();
 
+    // brillo en pétalos
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(255,255,255,0.2)";
+    ctx.arc(x - size * 0.1, y - size * 0.1, size * 0.15, 0, Math.PI * 2);
+    ctx.fill();
+
   }, delay);
 }
 
@@ -124,42 +130,82 @@ function drawLeaf(ctx, x, y, dir, delay) {
 /* =========================
    RELLENO
 ========================= */
-function drawFiller(ctx, cx, cy, delay) {
-  setTimeout(() => {
-    ctx.fillStyle = COLORS.filler;
+function drawFiller(ctx, cx, cy) {
+  for (let i = 0; i < 20; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const r = Math.random() * 50;
 
-    for (let i = 0; i < 20; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const r = Math.random() * 30;
+    const x = cx + Math.cos(angle) * r;
+    const y = cy + Math.sin(angle) * r;
+
+    // tallo mini
+    ctx.beginPath();
+    ctx.moveTo(x, y + 5);
+    ctx.lineTo(x, y + 12);
+    ctx.strokeStyle = "#74b816";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // pétalos mini
+    for (let j = 0; j < 6; j++) {
+      const a = (Math.PI * 2 / 6) * j;
 
       ctx.beginPath();
+      ctx.fillStyle = "#f1ca04";
       ctx.arc(
-        cx + Math.cos(angle) * r,
-        cy + Math.sin(angle) * r,
-        random(2, 4),
+        x + Math.cos(a) * 3,
+        y + Math.sin(a) * 3,
+        2,
         0,
         Math.PI * 2
       );
       ctx.fill();
     }
-  }, delay);
+
+    // centro
+    ctx.beginPath();
+    ctx.fillStyle = "#554303";
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
 /* =========================
    LAZO
 ========================= */
-function drawBow(ctx, x, y, delay) {
-  setTimeout(() => {
-    ctx.fillStyle = COLORS.bow;
+function drawBow(ctx, x, y) {
+  ctx.fillStyle = "#f59f00";
 
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+  // lado izquierdo
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.bezierCurveTo(x - 40, y - 25, x - 40, y + 25, x, y + 5);
+  ctx.fill();
 
-    ctx.bezierCurveTo(x - 40, y - 20, x - 40, y + 20, x, y + 5);
-    ctx.bezierCurveTo(x + 40, y - 20, x + 40, y + 20, x, y + 5);
+  // lado derecho
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.bezierCurveTo(x + 40, y - 25, x + 40, y + 25, x, y + 5);
+  ctx.fill();
 
-    ctx.fill();
-  }, delay);
+  // centro
+  ctx.beginPath();
+  ctx.arc(x, y, 6, 0, Math.PI * 2);
+  ctx.fill();
+
+  // cintas abajo
+  ctx.strokeStyle = "#e67700";
+  ctx.lineWidth = 2;
+
+  ctx.beginPath();
+  ctx.moveTo(x, y + 5);
+  ctx.quadraticCurveTo(x - 15, y + 40, x - 20, y + 60);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(x, y + 5);
+  ctx.quadraticCurveTo(x + 15, y + 40, x + 20, y + 60);
+  ctx.stroke();
 }
 
 /* =========================
@@ -202,4 +248,35 @@ function animateBouquet(ctx) {
   ctx.font = "bold 26px Quicksand";
   ctx.fillStyle = COLORS.petalDark;
   ctx.fillText("Para ti 💛", centerX, 60);
+
+  // MENSAJE FINAL
+  setTimeout(() => {
+  showFinalMessage();
+  }, 1500);
+
+}
+
+function showFinalMessage() {
+  const msg = document.createElement("div");
+
+  msg.textContent = "Solo quería darte algo bonito 💝";
+
+  msg.style.position = "absolute";
+  msg.style.bottom = "40px";
+  msg.style.left = "50%";
+  msg.style.transform = "translateX(-50%)";
+  msg.style.fontSize = "1.3rem";
+  msg.style.fontFamily = "Quicksand, sans-serif";
+  msg.style.color = "#5c4a00";
+  msg.style.opacity = "0";
+  msg.style.transition = "all 1s ease";
+  msg.style.textAlign = "center";
+
+  document.body.appendChild(msg);
+
+  // ✨ animación de aparición
+  setTimeout(() => {
+    msg.style.opacity = "1";
+    msg.style.transform = "translate(-50%, -10px)";
+  }, 100);
 }
