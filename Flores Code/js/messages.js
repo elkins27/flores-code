@@ -1,6 +1,6 @@
 export const mensajes = [
   "Hola guapaa.. 👀",
-  "Hoy es día de flores amarillas vrd? jajaja...",
+  "Día de flores amarillas vrd? jajaja",
   "Pues toca resolver como Ing 😼​",
   "Hecho con horas de esfuerzo jajaja",
   "Pa' sacarte una sonrisaa 😁",
