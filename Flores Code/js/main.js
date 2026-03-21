@@ -63,6 +63,14 @@ function showFlowers() {
   btn.style.display = "none";
 
   canvas.style.display = "block";
+  canvas.style.opacity = 0;
+  canvas.style.transform = "scale(0.8)";
+
+  setTimeout(() => {
+    canvas.style.transition = "all 1s ease";
+    canvas.style.opacity = 1;
+    canvas.style.transform = "scale(1)";
+  }, 50);
 
   startBouquet(canvas);
   startConfetti();
