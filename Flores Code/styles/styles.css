@@ -6,14 +6,13 @@
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, #fff9db, #f08c00);
+  background: radial-gradient(circle at 30% 30%, #fff9db, #f59f00);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Quicksand', sans-serif;
   overflow: hidden;
   position: relative;
-  animation: bgMove 12s ease-in-out infinite alternate;
   touch-action: manipulation;
 }
 
@@ -26,7 +25,6 @@ body::before {
   top: -150px;
   left: -150px;
   filter: blur(100px);
-  animation: lightMove 10s ease-in-out infinite alternate;
 }
 
 @keyframes lightMove {
